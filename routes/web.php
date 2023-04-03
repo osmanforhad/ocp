@@ -4,7 +4,9 @@ use App\Solid\AreaCalculator;
 use App\Solid\Circle;
 use App\Solid\PaymentService;
 use App\Solid\PaypalPaymentMethod;
+use App\Solid\PdfExport;
 use App\Solid\Rectangale;
+use App\Solid\SalesReport;
 use App\Solid\StripePaymentMethod;
 use App\Solid\Triangle;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,13 @@ Route::get('/', function () {
         new Triangle(20, 30),
     );
 });
+
 Route::get('/payment_service', function () {
     return (new PaymentService)->pay(new PaypalPaymentMethod);
+});
+
+Route::get('/sales_report', function () {
+    return (new SalesReport())->between('1 jan 2022', '31 jan 2022')->export(
+        new PdfExport(),
+    );
 });
