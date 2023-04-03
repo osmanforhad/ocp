@@ -2,7 +2,10 @@
 
 use App\Solid\AreaCalculator;
 use App\Solid\Circle;
+use App\Solid\PaymentService;
+use App\Solid\PaypalPaymentMethod;
 use App\Solid\Rectangale;
+use App\Solid\StripePaymentMethod;
 use App\Solid\Triangle;
 use Illuminate\Support\Facades\Route;
 
@@ -18,11 +21,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    
+
     return (new AreaCalculator)->totalArea(
         new Rectangale(10, 20),
         new Rectangale(20, 20),
         new Circle(10),
         new Triangle(20, 30),
     );
+});
+Route::get('/payment_service', function () {
+    return (new PaymentService)->pay(new PaypalPaymentMethod);
 });
